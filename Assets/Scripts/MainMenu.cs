@@ -5,22 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    public string firstlevel;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public string nextScene;
+    
     public void StartGame()
     {
-        SceneManager.LoadScene(firstlevel);
+        StartCoroutine(DelayLoadScene(0.5f));
     }
+    private IEnumerator DelayLoadScene(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(nextScene);
+    }
+
     public void OpenOption()
     {
 

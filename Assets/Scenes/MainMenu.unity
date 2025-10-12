@@ -1100,7 +1100,7 @@ GameObject:
   - component: {fileID: 1535391281}
   - component: {fileID: 1535391280}
   m_Layer: 0
-  m_Name: MainMenu
+  m_Name: MainMenuManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1118,7 +1118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc47517ee1b50fa4f954c227b71226b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstlevel: StrangeApp
+  nextScene: Prologue
 --- !u!4 &1535391281
 Transform:
   m_ObjectHideFlags: 0
