@@ -788,7 +788,7 @@ MonoBehaviour:
   dialogueText: {fileID: 952428080}
   speakerNameText: {fileID: 565780697}
   inkJSONAsset: {fileID: 4900000, guid: c700d287c32545e4e8ca084e878120b8, type: 3}
-  nextScene: StrangeApp
+  nextScene: Room
 --- !u!1 &1957630885
 GameObject:
   m_ObjectHideFlags: 0

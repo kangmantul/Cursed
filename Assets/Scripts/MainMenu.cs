@@ -14,7 +14,7 @@ public class MainMenu : MonoBehaviour
     private IEnumerator DelayLoadScene(float delay)
     {
         yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(nextScene);
+        SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
     }
 
     public void OpenOption()

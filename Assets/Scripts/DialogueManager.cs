@@ -82,7 +82,7 @@ public class DialogueManager : MonoBehaviour
     private IEnumerator DelayLoadScene(float delay)
     {
         yield return new WaitForSeconds(delay);
-        SceneManager.LoadScene(nextScene);
+        SceneManager.LoadScene(nextScene, LoadSceneMode.Single);
     }
     private void ContinueStory() 
     {
