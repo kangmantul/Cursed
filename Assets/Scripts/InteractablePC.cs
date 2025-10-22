@@ -54,10 +54,12 @@ public class InteractablePC : MonoBehaviour
         isDesktopOpen = true;
         desktopUI.gameObject.SetActive(true);
 
-        // Disable player movement
         if (playerController != null)
-            playerController.SetActive(false);
-
+        {
+            playerController.GetComponent<FirstPersonMovement>().speed = 0f;
+            playerController.GetComponent<FirstPersonMovement>().IsRunning = false;
+        }
+            
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
@@ -70,9 +72,11 @@ public class InteractablePC : MonoBehaviour
         isDesktopOpen = false;
         desktopUI.gameObject.SetActive(false);
 
-        // Re-enable player movement
         if (playerController != null)
-            playerController.SetActive(true);
+        {
+            playerController.GetComponent<FirstPersonMovement>().speed = 3f;
+            playerController.GetComponent<FirstPersonMovement>().IsRunning = true;
+        }
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
