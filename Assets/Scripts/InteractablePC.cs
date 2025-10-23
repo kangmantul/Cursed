@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class InteractablePC : MonoBehaviour
 {
@@ -8,9 +7,11 @@ public class InteractablePC : MonoBehaviour
     public LayerMask interactLayer;
     public Canvas desktopUI;
     public Camera playerCamera;
-    public GameObject playerController; 
+    public GameObject playerController;
 
-    private bool isDesktopOpen = false;
+    public bool isDesktopOpen = false;
+
+    private bool isClosing = false;
 
     void Start()
     {
@@ -33,52 +34,116 @@ public class InteractablePC : MonoBehaviour
             {
                 if (hit.collider.CompareTag("Computer"))
                 {
-                    OpenDesktop();
+                    if (!isDesktopOpen)
+                    {
+                        isDesktopOpen = true;
+                        desktopUI.gameObject.SetActive(true);
+                        GameFlowManager.Instance.OnPlayerInteractWithPC();
+                    }
                 }
             }
         }
 
         if (isDesktopOpen && Input.GetKeyDown(KeyCode.Escape))
         {
-            CloseDesktop();
+            if (isClosing) return;
+
+            if (GameFlowManager.Instance != null && GameFlowManager.Instance.CanCloseDesktop())
+            {
+                CloseDesktop();
+                GameFlowManager.Instance.OnDesktopClosed();
+            }
+            else
+            {
+                Debug.Log("Cannot exit PC in this state: " + GameFlowManager.Instance.currentState);
+            }
         }
 
         Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * interactDistance, Color.red);
     }
 
+    // === FUNGSI PEMBUKAAN PERTAMA (BOOT) ===
     public void OpenDesktop()
     {
         if (isDesktopOpen) return;
 
-        Debug.Log("Opening desktop...");
+        Debug.Log("Opening desktop (first boot)...");
         isDesktopOpen = true;
         desktopUI.gameObject.SetActive(true);
 
+        LockToPC(); 
+
+        if (GameFlowManager.Instance != null)
+        {
+            GameFlowManager.Instance.StartFirstBoot();
+        }
+    }
+
+    // === FUNGSI TAMBAHAN UNTUK FLOPPY ===
+    public void LockToPC()
+    {
+        // Kunci player, tampilkan cursor
         if (playerController != null)
         {
-            playerController.GetComponent<FirstPersonMovement>().speed = 0f;
-            playerController.GetComponent<FirstPersonMovement>().IsRunning = false;
+            var fm = playerController.GetComponent<FirstPersonMovement>();
+            if (fm != null)
+            {
+                fm.speed = 0f;
+                fm.IsRunning = false;
+            }
         }
-            
+
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
     }
 
-    public void CloseDesktop()
+    public void UnlockFromPC()
     {
-        if (!isDesktopOpen) return;
-
-        Debug.Log("Closing desktop...");
-        isDesktopOpen = false;
-        desktopUI.gameObject.SetActive(false);
-
         if (playerController != null)
         {
-            playerController.GetComponent<FirstPersonMovement>().speed = 3f;
-            playerController.GetComponent<FirstPersonMovement>().IsRunning = true;
+            var fm = playerController.GetComponent<FirstPersonMovement>();
+            if (fm != null)
+            {
+                fm.speed = 3f;
+                fm.IsRunning = true;
+            }
         }
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+    }
+
+    // === CLOSE DESKTOP ===
+    public void CloseDesktop()
+    {
+        if (!isDesktopOpen) return;
+
+        if (isClosing) return; 
+
+        isClosing = true;
+        Debug.Log("Closing desktop...");
+        isDesktopOpen = false;
+
+        if (desktopUI != null) desktopUI.gameObject.SetActive(false);
+
+        UnlockFromPC();
+        // kecilkan kemungkinan race condition, reset isClosing di next frame
+        // supaya jika ada callback lain yang memanggil CloseDesktop() segera tidak menyebabkan recursion
+        StartCoroutine(ClearClosingFlagNextFrame());
+    }
+
+    private System.Collections.IEnumerator ClearClosingFlagNextFrame()
+    {
+        yield return null;
+        isClosing = false;
+    }
+
+    // Fungsi bantuan yang dipakai GameFlowManager jika perlu 'force open' desktop
+    public void ForceOpenDesktop()
+    {
+        if (isDesktopOpen) return;
+        isDesktopOpen = true;
+        if (desktopUI != null) desktopUI.gameObject.SetActive(true);
+        LockToPC();
     }
 }

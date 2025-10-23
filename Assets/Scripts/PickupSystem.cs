@@ -38,11 +38,18 @@ public class PickupSystem : MonoBehaviour
                 {
                     heldObject = rb;
                     heldObject.useGravity = false;
-                    heldObject.isKinematic = true; 
+                    heldObject.isKinematic = true;
+
+                    if (hit.transform.name.ToLower().Contains("floppy"))
+                    {
+                        GameStateManager.Instance.hasFloppy = true;
+                        Debug.Log("Floppy picked up!");
+                    }
                 }
             }
         }
     }
+
 
     void DropObject()
     {
