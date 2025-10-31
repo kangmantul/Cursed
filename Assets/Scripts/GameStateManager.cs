@@ -9,7 +9,7 @@ public class GameStateManager : MonoBehaviour
     [Header("Progress flags")]
     public bool hasFloppy = false;          
     public bool floppyInserted = false;      
-    public bool desktopUnlocked = false;     
+    public bool desktopUnlocked = false; 
 
     private void Awake()
     {

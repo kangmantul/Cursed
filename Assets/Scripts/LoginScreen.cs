@@ -7,8 +7,8 @@ public class LoginScreen : MonoBehaviour
     public InputField passwordField;
     public Text feedbackText;
 
-    public string correctUser = "ozul";
-    public string correctPass = "echo";
+    public string correctUser = "a";
+    public string correctPass = "a";
 
     void Update()
     {
