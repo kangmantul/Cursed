@@ -399,6 +399,64 @@ Transform:
   - {fileID: 151061445}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &239182829
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 239182830}
+  - component: {fileID: 239182831}
+  m_Layer: 0
+  m_Name: StorySystem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &239182830
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239182829}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 104.461464, y: 67.069595, z: 0.5594189}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &239182831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239182829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d669c4adf83db3b449efe653d48f38c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogues:
+  - id: pw
+    lines:
+    - id: pw
+      text: Password?
+      duration: 2
+  - id: popup
+    lines:
+    - id: popup
+      text: hm...
+      duration: 2
+    - id: popup
+      text: i think i've seen that somewhere
+      duration: 3
 --- !u!1 &282514524
 GameObject:
   m_ObjectHideFlags: 0
@@ -1922,8 +1980,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 50
+  m_fontSizeBase: 50
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1958,7 +2016,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -540.3096, y: 0, z: -514.1658, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2340,7 +2398,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1124412882}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 104.461464, y: 67.069595, z: 0.5594189}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2378,7 +2436,7 @@ GameObject:
   - component: {fileID: 1152071188}
   - component: {fileID: 1152071187}
   m_Layer: 5
-  m_Name: DialogueTriggerCanvas
+  m_Name: StoryTriggerCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2445,7 +2503,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 10
   m_TargetDisplay: 0
 --- !u!224 &1152071190
 RectTransform:
@@ -3675,11 +3733,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueLines:
-  - text: Is it my room?
-    duration: 3
-  - text: WTF!?
-    duration: 3
+  - text: I should set my pc...
+    duration: 2
   triggerOnce: 1
+  triggerOnStart: 0
 --- !u!65 &1651871031
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7125,6 +7182,7 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 1793390867}
   - {fileID: 5457417702468961969}
+  - {fileID: 1152071190}
   - {fileID: 1430037928}
   - {fileID: 1044982096}
   - {fileID: 703448732}
@@ -7132,7 +7190,7 @@ SceneRoots:
   - {fileID: 190506075}
   - {fileID: 3763196348839144803}
   - {fileID: 1651871032}
-  - {fileID: 1152071190}
   - {fileID: 398289249}
-  - {fileID: 1915723233}
   - {fileID: 1124412883}
+  - {fileID: 1915723233}
+  - {fileID: 239182830}

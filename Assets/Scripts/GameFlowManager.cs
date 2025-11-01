@@ -43,6 +43,7 @@ public class GameFlowManager : MonoBehaviour
             // boot pertama → tampilkan login
             SetState(PCState.LOGIN);
             computerController.ShowLogin();
+            MazeDialogueSystem.Instance.Play("pw");
         }
         else
         {
@@ -59,6 +60,7 @@ public class GameFlowManager : MonoBehaviour
         {
             // setelah login pertama → desktop dengan popup
             SetState(PCState.DESKTOP_WITH_POPUP);
+            MazeDialogueSystem.Instance.Play("popup");
             computerController.ShowDesktopWithPopup();
         }
         else if (currentState == PCState.SECOND_LOGIN)
