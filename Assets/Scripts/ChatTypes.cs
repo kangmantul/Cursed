@@ -22,6 +22,14 @@ public class ResponseOption
     public ChatBranch nextBranch;
 }
 
+public enum ChatBranchEventType
+{
+    None,
+    PlayPopup,
+    UnlockApp,
+    UnlockClue
+}
+
 [System.Serializable]
 public class ChatBranch
 {
@@ -33,6 +41,18 @@ public class ChatBranch
 
     [Tooltip("Balasan default")]
     public List<ChatLine> defaultResponse = new List<ChatLine>();
+
+    [Header("Event Setelah Branch Ini")]
+    public ChatBranchEventType onBranchCompleteEvent = ChatBranchEventType.None;
+
+    [Tooltip("Untuk event PlayPopup, isi key dialog MazeDialogueSystem")]
+    public string popupKey;
+
+    [Tooltip("Untuk event UnlockApp, isi nama app yang ingin dibuka")]
+    public string appName;
+
+    [Tooltip("Untuk event UnlockClue, isi nama clue")]
+    public string clueName;
 }
 
 [System.Serializable]

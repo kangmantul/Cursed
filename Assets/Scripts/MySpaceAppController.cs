@@ -43,7 +43,6 @@ public class MySpaceAppController : MonoBehaviour
             if (ipc != null) ipc.LockToPC();
         }
 
-        // place on top
         var rt = appWindow.GetComponent<RectTransform>();
         if (rt != null) rt.SetAsLastSibling();
     }

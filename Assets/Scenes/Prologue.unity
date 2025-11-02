@@ -751,7 +751,7 @@ GameObject:
   - component: {fileID: 1955811615}
   - component: {fileID: 1955811616}
   m_Layer: 0
-  m_Name: DialogueManager
+  m_Name: DialogueManager-Prologue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -781,7 +781,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1955811614}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b1a7a19c3885a3438cfc3026139545d, type: 3}
+  m_Script: {fileID: 11500000, guid: 269a7ed0c7738ea4093fe413c5d6f555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dialoguePanel: {fileID: 1870016808}

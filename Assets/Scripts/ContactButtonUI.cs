@@ -15,41 +15,54 @@ public class ContactButtonUI : MonoBehaviour
 
     private string contactId;
     private int badgeCount = 0;
+    private bool hasBeenActivated = false; 
 
     public void Setup(string id, string displayName, Sprite avatar, int initialBadge = 0)
     {
         contactId = id.ToLower();
         nameText.text = displayName;
         if (avatar != null) avatarImage.sprite = avatar;
-        SetBadge(initialBadge);
+
+        SetBadge(initialBadge, forceActive: true);
 
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() =>
         {
             Debug.Log($"[ContactButtonUI] {displayName} clicked (id: {id})");
-            ClearBadge();
+
+            if (hasBeenActivated)
+                ClearBadge();
+
             onClick?.Invoke(contactId);
         });
     }
-    public void SetBadge(int n)
+
+    public void SetBadge(int n, bool forceActive = false)
     {
         badgeCount = Mathf.Max(0, n);
+
         if (badgeGO != null)
         {
-            badgeGO.SetActive(badgeCount > 0);
+            bool shouldShow = (badgeCount > 0) || forceActive;
+
+            badgeGO.SetActive(shouldShow);
             badgeText.text = badgeCount.ToString();
         }
+
+        if (badgeCount > 0)
+            hasBeenActivated = true; 
     }
+
     public void IncrementBadge(int delta = 1)
     {
         SetBadge(badgeCount + delta);
     }
+
     public void ClearBadge()
     {
         SetBadge(0);
     }
 
     public string GetContactId() => contactId;
-
     public int GetBadgeCount() => badgeCount;
 }

@@ -51,5 +51,10 @@ public class ContactsPanelController : MonoBehaviour
             contact.uiInstance.IncrementBadge(count);
             Debug.Log($"[ContactsPanel] +{count} badge untuk {contact.displayName}");
         }
+        else
+        {
+            Debug.LogWarning($"[ContactsPanel] GAGAL kirim badge untuk {contactId} — uiInstance null atau tidak ditemukan!");
+        }
     }
+
 }

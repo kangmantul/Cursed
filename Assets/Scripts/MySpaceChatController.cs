@@ -29,6 +29,18 @@ public class MySpaceChatController : MonoBehaviour
         foreach (var c in contactsPanel.contacts)
             contactLookup[c.id.ToLower()] = c;
 
+        // === Generate badge awal untuk semua kontak dengan initial chat ===
+        foreach (var c in contactsPanel.contacts)
+        {
+            if (c.rootBranch != null && c.rootBranch.initialLines.Count > 0)
+            {
+                // Tambah badge sesuai jumlah pesan awal
+                contactsPanel.NotifyIncoming(c.id, c.rootBranch.initialLines.Count);
+                Debug.Log($"[MySpace] Badge awal +{c.rootBranch.initialLines.Count} untuk {c.displayName}");
+            }
+        }
+
+
         typingInput.onSubmit.AddListener(OnSubmitFromInput);
         typingInput.onEndEdit.AddListener(OnSubmitFromInput);
 
@@ -72,6 +84,12 @@ public class MySpaceChatController : MonoBehaviour
             currentBranches[key] = currentBranch;
         }
 
+        if (contact.uiInstance != null)
+        {
+            contact.uiInstance.ClearBadge();
+            Debug.Log($"[MySpace] Badge reset untuk {contact.displayName}");
+        }
+
         chatPanel.SetActive(true);
         typingPanel.SetActive(true);
         chatManager.ClearChat();
@@ -86,18 +104,27 @@ public class MySpaceChatController : MonoBehaviour
         else
         {
             chatHistory[key] = new List<ChatLine>();
-            StartCoroutine(PlayBranch(currentBranch));
+            StartCoroutine(PlayBranch(currentBranch, contact));
         }
 
         Debug.Log($"[MySpace] Membuka kontak: {key}");
     }
 
-    IEnumerator PlayBranch(ChatBranch branch)
+    IEnumerator PlayBranch(ChatBranch branch, ContactData contact = null, bool isInitial = false)
     {
         if (branch == null)
         {
             Debug.LogWarning("[Chat] Branch null — tidak ada percakapan.");
             yield break;
+        }
+
+        if (isInitial && contact != null && contact.uiInstance != null)
+        {
+            if (contact.id.ToLower() != currentContact.ToLower())
+            {
+                contactsPanel.NotifyIncoming(contact.id, branch.initialLines.Count);
+                Debug.Log($"[MySpace] Badge +{branch.initialLines.Count} untuk {contact.displayName}");
+            }
         }
 
         foreach (var line in branch.initialLines)
@@ -106,7 +133,13 @@ public class MySpaceChatController : MonoBehaviour
             SaveToHistory(currentContact, line);
             yield return new WaitForSeconds(line.delayAfter);
         }
+
+        if (branch.onBranchCompleteEvent != ChatBranchEventType.None)
+        {
+            TriggerBranchEvent(branch, contact);
+        }
     }
+
 
     void OnTypingSubmit()
     {
@@ -146,17 +179,15 @@ public class MySpaceChatController : MonoBehaviour
         if (option.nextBranch != null)
         {
             currentBranch = option.nextBranch;
+            currentBranches[currentContact] = currentBranch;
 
-            if (!string.IsNullOrEmpty(currentContact))
-                currentBranches[currentContact] = currentBranch;
-
-            yield return PlayBranch(currentBranch);
+            var contact = contactLookup[currentContact];
+            yield return PlayBranch(currentBranch, contact);
         }
         else
         {
             Debug.Log("[Chat] Percakapan selesai di branch ini.");
         }
-
     }
 
     IEnumerator PlayLines(List<ChatLine> lines)
@@ -175,5 +206,30 @@ public class MySpaceChatController : MonoBehaviour
         if (!chatHistory.ContainsKey(contactId))
             chatHistory[contactId] = new List<ChatLine>();
         chatHistory[contactId].Add(line);
+    }
+
+    void TriggerBranchEvent(ChatBranch branch, ContactData contact)
+    {
+        switch (branch.onBranchCompleteEvent)
+        {
+            case ChatBranchEventType.PlayPopup:
+                if (!string.IsNullOrEmpty(branch.popupKey))
+                    MazeDialogueSystem.Instance.Play(branch.popupKey);
+                break;
+
+            case ChatBranchEventType.UnlockApp:
+                if (!string.IsNullOrEmpty(branch.appName))
+                    GameStateManager.Instance.UnlockApp(branch.appName);
+                break;
+
+            case ChatBranchEventType.UnlockClue:
+                if (!string.IsNullOrEmpty(branch.clueName))
+                    GameStateManager.Instance.UnlockClue(branch.clueName);
+                break;
+
+            default:
+                Debug.Log("[Chat] Tidak ada event khusus pada branch ini.");
+                break;
+        }
     }
 }
