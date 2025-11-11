@@ -59,7 +59,6 @@ public class MazeDialogueUI : MonoBehaviour
 
         yield return new WaitForSeconds(duration);
 
-        // slide-out
         t = 0f;
         while (t < slideTime)
         {

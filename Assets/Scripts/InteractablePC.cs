@@ -62,7 +62,7 @@ public class InteractablePC : MonoBehaviour
         Debug.DrawRay(playerCamera.transform.position, playerCamera.transform.forward * interactDistance, Color.red);
     }
 
-    // === FUNGSI PEMBUKAAN PERTAMA (BOOT) ===
+    // === FUNGSI (BOOT) ===
     public void OpenDesktop()
     {
         if (isDesktopOpen) return;
@@ -79,7 +79,6 @@ public class InteractablePC : MonoBehaviour
         }
     }
 
-    // === FUNGSI TAMBAHAN UNTUK FLOPPY ===
     public void LockToPC()
     {
         // Kunci player, tampilkan cursor

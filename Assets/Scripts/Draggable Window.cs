@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 [RequireComponent(typeof(RectTransform))]
 public class DraggableWindow : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler
 {
-    public RectTransform dragHandle; // jika null -> drag seluruh window (root)
+    public RectTransform dragHandle; 
     RectTransform rootRect;
     Canvas rootCanvas;
     Vector2 pointerOffset;
@@ -16,25 +16,20 @@ public class DraggableWindow : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (rootCanvas == null) Debug.LogWarning("DraggableWindow: Canvas parent not found.");
     }
 
-    // pastikan kita hanya memulai drag ketika klik pada handle (jika ada) atau di seluruh window
     public void OnPointerDown(PointerEventData eventData)
     {
-        // needed to bring window to front
         rootRect.SetAsLastSibling();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         RectTransformUtility.ScreenPointToLocalPointInRectangle(rootRect, eventData.position, eventData.pressEventCamera, out pointerOffset);
-        // if there's a handle and pointer not on handle, ignore begin drag (we rely on IDrag on handle only)
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        // Only allow drag if pointer is on the handle (when handle assigned), otherwise allow drag anywhere
         if (dragHandle != null)
         {
-            // check if pointer is over handle area
             if (!RectTransformUtility.RectangleContainsScreenPoint(dragHandle, eventData.position, eventData.pressEventCamera))
                 return;
         }
@@ -52,7 +47,6 @@ public class DraggableWindow : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        // optional: clamp window to canvas bounds
         ClampToWindow();
     }
 

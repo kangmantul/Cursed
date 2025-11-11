@@ -29,12 +29,10 @@ public class MySpaceChatController : MonoBehaviour
         foreach (var c in contactsPanel.contacts)
             contactLookup[c.id.ToLower()] = c;
 
-        // === Generate badge awal untuk semua kontak dengan initial chat ===
         foreach (var c in contactsPanel.contacts)
         {
             if (c.rootBranch != null && c.rootBranch.initialLines.Count > 0)
             {
-                // Tambah badge sesuai jumlah pesan awal
                 contactsPanel.NotifyIncoming(c.id, c.rootBranch.initialLines.Count);
                 Debug.Log($"[MySpace] Badge awal +{c.rootBranch.initialLines.Count} untuk {c.displayName}");
             }

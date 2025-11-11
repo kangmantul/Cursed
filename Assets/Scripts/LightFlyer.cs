@@ -3,93 +3,47 @@ using System.Collections;
 
 public class LightFlyer : MonoBehaviour
 {
-    public float speed = 15f;
-    public float lifeTime = 3f;
-    public AudioSource audioSource;
-    private Transform target;
-    private Light pointLight;
+    public float speed = 6f;
+    public float lifetime = 5f;
+    public AudioSource flySound;
+    private Transform player;
+    private bool isChasing = false;
+    public System.Action OnFlyerDestroyed;
 
+    void OnDestroy()
+    {
+        OnFlyerDestroyed?.Invoke();
+    }
     void Start()
     {
-        pointLight = GetComponentInChildren<Light>();
-        Destroy(gameObject, lifeTime + 1f);
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        if (flySound != null)
+        {
+            flySound.Play();
+            flySound.spatialBlend = 1f;
+        }
+
+        Destroy(gameObject, lifetime);
     }
 
-    public void Init(Transform player)
+    void Update()
     {
-        target = player;
-        if (audioSource != null)
+        if (!isChasing && player != null)
         {
-            audioSource.Play();
-            audioSource.volume = 0f; 
+            transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
         }
-
-        StartCoroutine(FlyTowardPlayer());
     }
 
-    IEnumerator FlyTowardPlayer()
+    private void OnTriggerEnter(Collider other)
     {
-        if (target == null)
+        if (other.CompareTag("Player"))
         {
-            Debug.LogWarning("[LightFlyer] Target hilang sebelum mulai.");
-            yield break;
+            Debug.Log("[LightFlyer] Player tertangkap! Respawn...");
+            MazeRespawnManager.Instance.RespawnPlayer();
+
+            // bunyi efek + hancurkan cahaya
+            if (flySound != null) flySound.Stop();
+            Destroy(gameObject);
         }
-
-        Vector3 dir = (target.position - transform.position).normalized;
-        Vector3 endPos = target.position + dir * 2f;
-
-        float totalTime = lifeTime;
-        float t = 0f;
-
-        while (t < totalTime)
-        {
-            if (target == null)
-            {
-                Debug.LogWarning("[LightFlyer] Target hilang di tengah jalan.");
-                break;
-            }
-
-            t += Time.deltaTime;
-
-            float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, endPos, step);
-
-            if (audioSource != null)
-            {
-                float dist = Vector3.Distance(transform.position, target.position);
-                float normalized = Mathf.Clamp01(1f - (dist / 10f));
-                audioSource.volume = Mathf.Lerp(audioSource.volume, normalized, Time.deltaTime * 5f);
-            }
-
-            yield return null;
-        }
-
-        StartCoroutine(FadeOut());
-    }
-
-
-    IEnumerator FadeOut()
-    {
-        float duration = 1f;
-        float startIntensity = pointLight ? pointLight.intensity : 1f;
-        float startVolume = audioSource ? audioSource.volume : 1f;
-
-        float t = 0f;
-        while (t < duration)
-        {
-            t += Time.deltaTime;
-            float f = 1f - t / duration;
-
-            if (pointLight != null)
-                pointLight.intensity = startIntensity * f;
-
-            if (audioSource != null)
-                audioSource.volume = startVolume * f;
-
-            yield return null;
-        }
-
-        if (audioSource != null) audioSource.Stop();
-        Destroy(gameObject);
     }
 }

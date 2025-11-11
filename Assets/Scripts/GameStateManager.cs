@@ -41,7 +41,6 @@ public class GameStateManager : MonoBehaviour
         unlockedApps.Add(appName);
         Debug.Log($"[GameStateManager] App '{appName}' berhasil dibuka!");
 
-        // Coba aktifkan GameObject-nya di scene
         var appObj = GameObject.Find(appName);
         if (appObj != null)
         {

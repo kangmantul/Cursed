@@ -7,9 +7,9 @@ using TMPro;
 public class ChatManager : MonoBehaviour
 {
     [Header("UI References")]
-    public Transform chatContainer;       // Content dari Scroll View (RectTransform)
-    public GameObject chatMessagePrefab;  // Prefab berisi TMP text
-    public ScrollRect scrollRect;         // Scroll view utama
+    public Transform chatContainer;       
+    public GameObject chatMessagePrefab;  
+    public ScrollRect scrollRect;         
 
     [Header("Auto-scroll Settings")]
     public bool autoScroll = true;
@@ -17,7 +17,6 @@ public class ChatManager : MonoBehaviour
 
     private Coroutine smoothScrollCoroutine = null;
 
-    // === Public method: spawn pesan baru ke chat ===
     public void SpawnOne(string username, string message)
     {
         if (chatMessagePrefab == null || chatContainer == null)
@@ -26,7 +25,6 @@ public class ChatManager : MonoBehaviour
             return;
         }
 
-        // buat elemen chat baru
         GameObject newMsg = Instantiate(chatMessagePrefab, chatContainer);
         var ui = newMsg.GetComponent<MessageUI>();
         if (ui != null)
@@ -38,7 +36,6 @@ public class ChatManager : MonoBehaviour
             Debug.LogWarning("[ChatManager] Chat prefab tidak memiliki komponen MessageUI.");
         }
 
-        // rebuild layout dan scroll otomatis
         Canvas.ForceUpdateCanvases();
         LayoutRebuilder.ForceRebuildLayoutImmediate(chatContainer.GetComponent<RectTransform>());
 
@@ -54,7 +51,6 @@ public class ChatManager : MonoBehaviour
         }
     }
 
-    // === Bersihkan semua pesan di UI ===
     public void ClearChat()
     {
         foreach (Transform child in chatContainer)
@@ -63,7 +59,6 @@ public class ChatManager : MonoBehaviour
         }
     }
 
-    // === Smooth scroll untuk efek lembut saat ada pesan baru ===
     IEnumerator SmoothScrollToBottom(float duration)
     {
         if (scrollRect == null)
