@@ -1,19 +1,31 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(RectTransform))]
 public class DraggableWindow : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerDownHandler
 {
-    public RectTransform dragHandle; 
+    [Header("Optional Drag Handle")]
+    public RectTransform dragHandle;
+
+    [Header("Digital Boundaries")]
+    public RectTransform leftPanel;
+    public RectTransform rightPanel;
+
     RectTransform rootRect;
     Canvas rootCanvas;
     Vector2 pointerOffset;
+    Camera uiCamera;
 
     void Awake()
     {
         rootRect = GetComponent<RectTransform>();
         rootCanvas = GetComponentInParent<Canvas>();
-        if (rootCanvas == null) Debug.LogWarning("DraggableWindow: Canvas parent not found.");
+
+        if (rootCanvas == null)
+            Debug.LogWarning("DraggableWindow: Canvas parent not found.");
+
+        if (rootCanvas.renderMode == RenderMode.ScreenSpaceCamera)
+            uiCamera = rootCanvas.worldCamera;
     }
 
     public void OnPointerDown(PointerEventData eventData)
@@ -39,15 +51,17 @@ public class DraggableWindow : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         Vector2 localPointerPosition;
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(rootCanvas.transform as RectTransform, eventData.position, eventData.pressEventCamera, out localPointerPosition))
         {
-            Vector2 pivotOffset = new Vector2(rootRect.rect.width * rootRect.pivot.x, rootRect.rect.height * rootRect.pivot.y);
             Vector2 newPos = localPointerPosition - pointerOffset;
             rootRect.anchoredPosition = newPos;
         }
+
+        ClampToPanels();
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        ClampToWindow();
+        ClampToWindow(); 
+        ClampToPanels(); 
     }
 
     void ClampToWindow()
@@ -69,5 +83,39 @@ public class DraggableWindow : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         if (windowCorners[2].y > canvasCorners[2].y) offset.y = canvasCorners[2].y - windowCorners[2].y;
 
         rootRect.position += (Vector3)offset;
+    }
+
+    void ClampToPanels()
+    {
+        if (leftPanel == null || rightPanel == null) return;
+
+        Vector3[] leftCorners = new Vector3[4];
+        Vector3[] rightCorners = new Vector3[4];
+        Vector3[] windowCorners = new Vector3[4];
+
+        leftPanel.GetWorldCorners(leftCorners);
+        rightPanel.GetWorldCorners(rightCorners);
+        rootRect.GetWorldCorners(windowCorners);
+
+        float leftLimit = leftCorners[2].x;   
+        float rightLimit = rightCorners[0].x; 
+
+        float windowLeft = windowCorners[0].x;
+        float windowRight = windowCorners[2].x;
+
+        Vector3 pos = rootRect.position;
+
+        if (windowLeft < leftLimit)
+        {
+            float diff = leftLimit - windowLeft;
+            pos.x += diff;
+        }
+        else if (windowRight > rightLimit)
+        {
+            float diff = rightLimit - windowRight;
+            pos.x += diff;
+        }
+
+        rootRect.position = pos;
     }
 }

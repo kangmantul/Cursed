@@ -122,6 +122,58 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &126215672
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 126215674}
+  - component: {fileID: 126215675}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &126215674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126215672}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 346.51962, y: 215.69772, z: 1.7152135}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &126215675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126215672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 619cb880d21027a469538a34576ee1f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmClip: {fileID: 8300000, guid: d69ac76f6c123ea4fb88e48035a9d624, type: 3}
+  sfxClips: []
+  ambientClip: {fileID: 0}
+  bgmVolume: 1
+  sfxVolume: 1
+  ambientVolume: 0.6
+  playBGMOnStart: 1
+  playAmbientOnStart: 0
 --- !u!1 &335054237
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,7 +210,7 @@ Camera:
   m_GameObject: {fileID: 335054237}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -374,7 +426,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 183.19, y: 180.38}
+  m_AnchoredPosition: {x: 0, y: 43.616}
   m_SizeDelta: {x: 429.6226, y: 87.2312}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &503791375
@@ -410,7 +462,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Cursed 1990
+  m_Text: 'Cenotaph
+
+'
 --- !u!222 &503791376
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -489,7 +543,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'QUIT
+  m_Text: 'Quit
 
 
 '
@@ -537,7 +591,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 287, y: 89}
+  m_AnchoredPosition: {x: 3, y: -64}
   m_SizeDelta: {x: 161.8429, y: 30.3455}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &893812825
@@ -819,7 +873,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 287, y: 54}
+  m_AnchoredPosition: {x: 3, y: -98.999985}
   m_SizeDelta: {x: 161.8429, y: 30.3455}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1212225944
@@ -1229,7 +1283,7 @@ GameObject:
   - component: {fileID: 1715197303}
   - component: {fileID: 1715197302}
   m_Layer: 5
-  m_Name: QUIT
+  m_Name: Quit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1252,7 +1306,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 287, y: 18}
+  m_AnchoredPosition: {x: 3, y: -134.99998}
   m_SizeDelta: {x: 161.8429, y: 30.3455}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1715197302
@@ -1359,3 +1413,4 @@ SceneRoots:
   - {fileID: 1509851721}
   - {fileID: 1452560800}
   - {fileID: 1535391281}
+  - {fileID: 126215674}

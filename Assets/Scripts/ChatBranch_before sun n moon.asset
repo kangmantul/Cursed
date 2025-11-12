@@ -1,0 +1,178 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30d394626bc7b7146a046ddee06b08a8, type: 3}
+  m_Name: ChatBranch_before sun n moon
+  m_EditorClassIdentifier: 
+  branch:
+    initialLines:
+    - username: moongirl
+      message: "Hey\u2026 I don\u2019t know if you still use this app, but I felt
+        like saying hi."
+      delayAfter: 1.5
+    - username: moongirl
+      message: "You probably don\u2019t remember me."
+      delayAfter: 1.5
+    - username: moongirl
+      message: "this might sound weird but\u2026"
+      delayAfter: 1.5
+    - username: moongirl
+      message: Do you ever scroll through old messages just to feel something again?
+      delayAfter: 1.5
+    - username: moongirl
+      message: "Sometimes I do that. Sometimes it\u2019s like hearing a ghost talk
+        back."
+      delayAfter: 1.5
+    possibleResponses:
+    - acceptedKeywords:
+      - Who
+      - Why
+      - What
+      - '?'
+      npcResponse:
+      - username: moongirl
+        message: "You don\u2019t remember, do you?"
+        delayAfter: 1.5
+      nextBranch:
+        initialLines:
+        - username: moongirl
+          message: "That\u2019s okay. Memories rot like fruit when you keep them
+            too long."
+          delayAfter: 2
+        - username: moongirl
+          message: "But the color stays\u2026 the color always stays."
+          delayAfter: 2
+        possibleResponses:
+        - acceptedKeywords:
+          - What
+          - Color
+          - '?'
+          npcResponse:
+          - username: moongirl
+            message: Yes.
+            delayAfter: 1.5
+          - username: moongirl
+            message: It used to be your favorite. You said it felt like sunlight
+              after rain.
+            delayAfter: 1.5
+          - username: moongirl
+            message: I said it looked like goodbye.
+            delayAfter: 1.5
+          nextBranch:
+            initialLines:
+            - username: moongirl
+              message: so? you remember right? tell me
+              delayAfter: 2
+            possibleResponses:
+            - acceptedKeywords:
+              - yellow
+              npcResponse:
+              - username: moongirl
+                message: You still remember.
+                delayAfter: 1.5
+              - username: moongirl
+                message: I kept a piece of it. In a photo. You took it, remember?
+                delayAfter: 2
+              - username: moongirl
+                message: There was a flower beside me. It had no scent.
+                delayAfter: 2
+              nextBranch:
+                initialLines:
+                - username: moongirl
+                  message: "That\u2019s what we called love in that flowers name,
+                    and it was?"
+                  delayAfter: 2
+                possibleResponses:
+                - acceptedKeywords:
+                  - Tulip
+                  npcResponse:
+                  - username: moongirl
+                    message: "Haha.. You said it meant perfect love\u2026 then laughed
+                      like you didn\u2019t believe in meanings."
+                    delayAfter: 2
+                  - username: moongirl
+                    message: Well you said it reminded you of something.
+                    delayAfter: 2
+                  nextBranch:
+                    initialLines:
+                    - username: moongirl
+                      message: "Two things that can\u2019t meet\u2014unless it\u2019s
+                        twilight."
+                      delayAfter: 2
+                    possibleResponses:
+                    - acceptedKeywords:
+                      - sun
+                      - moon
+                      npcResponse:
+                      - username: moongirl
+                        message: Yes.
+                        delayAfter: 2
+                      - username: moongirl
+                        message: Do you still think the moon and the sun can meet?
+                        delayAfter: 2
+                      - username: moongirl
+                        message: You said they were like two souls chasing each other
+                          across the sky.
+                        delayAfter: 2
+                      - username: moongirl
+                        message: "When they meet\u2014it\u2019s beautiful\u2026 and
+                          brief."
+                        delayAfter: 2
+                      nextBranch:
+                        onBranchCompleteEvent: 1
+                        popupKey: sunmoon
+                        appName: 
+                        clueName: 
+                    defaultResponse:
+                    - username: moongirl
+                      message: ' Hmmm'
+                      delayAfter: 1.5
+                    - username: moongirl
+                      message: "You used to call them a pair\u2014different, but
+                        made for balance."
+                      delayAfter: 1.5
+                    onBranchCompleteEvent: 1
+                    popupKey: tulip
+                    appName: 
+                    clueName: 
+                defaultResponse:
+                - username: moongirl
+                  message: It was our promise, and you forgot?
+                  delayAfter: 1
+                - username: moongirl
+                  message: take another guess
+                  delayAfter: 1
+                onBranchCompleteEvent: 0
+                popupKey: 
+                appName: 
+                clueName: 
+            defaultResponse:
+            - username: moongirl
+              message: It was our favorite
+              delayAfter: 1
+            - username: moongirl
+              message: look around ur room
+              delayAfter: 1
+            onBranchCompleteEvent: 0
+            popupKey: 
+            appName: 
+            clueName: 
+        defaultResponse: []
+        onBranchCompleteEvent: 0
+        popupKey: 
+        appName: 
+        clueName: 
+    defaultResponse: []
+    onBranchCompleteEvent: 0
+    popupKey: 
+    appName: 
+    clueName: 
+  nextBranchAsset: {fileID: 11400000, guid: dc197d8e2d388ef43aed6d681ff14db9, type: 2}

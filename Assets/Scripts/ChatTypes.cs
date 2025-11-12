@@ -65,5 +65,16 @@ public class ContactData
     [Header("Root Branch Percakapan")]
     public ChatBranch rootBranch;
 
+    [Tooltip("Gunakan asset eksternal untuk branch besar")]
+    public ChatBranchAsset rootBranchAsset;
+
     [HideInInspector] public ContactButtonUI uiInstance;
+    public ChatBranch GetRootBranch()
+    {
+        if (rootBranchAsset != null && rootBranchAsset.branch != null)
+            return rootBranchAsset.branch;
+
+        return rootBranch;
+    }
+
 }

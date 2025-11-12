@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class MySpaceChatController : MonoBehaviour
 {
@@ -31,12 +32,14 @@ public class MySpaceChatController : MonoBehaviour
 
         foreach (var c in contactsPanel.contacts)
         {
-            if (c.rootBranch != null && c.rootBranch.initialLines.Count > 0)
+            var branch = c.GetRootBranch();
+            if (branch != null && branch.initialLines.Count > 0)
             {
-                contactsPanel.NotifyIncoming(c.id, c.rootBranch.initialLines.Count);
-                Debug.Log($"[MySpace] Badge awal +{c.rootBranch.initialLines.Count} untuk {c.displayName}");
+                contactsPanel.NotifyIncoming(c.id, branch.initialLines.Count);
+                Debug.Log($"[MySpace] Badge awal +{branch.initialLines.Count} untuk {c.displayName}");
             }
         }
+
 
 
         typingInput.onSubmit.AddListener(OnSubmitFromInput);
@@ -78,7 +81,8 @@ public class MySpaceChatController : MonoBehaviour
         var contact = contactLookup[key];
         if (!currentBranches.TryGetValue(key, out currentBranch) || currentBranch == null)
         {
-            currentBranch = contact.rootBranch;
+            currentBranch = contact.GetRootBranch();
+
             currentBranches[key] = currentBranch;
         }
 
@@ -128,6 +132,7 @@ public class MySpaceChatController : MonoBehaviour
         foreach (var line in branch.initialLines)
         {
             chatManager.SpawnOne(line.username, line.message);
+            FindObjectOfType<AudioManager>().PlaySFX("startcomputer");
             SaveToHistory(currentContact, line);
             yield return new WaitForSeconds(line.delayAfter);
         }
@@ -135,6 +140,31 @@ public class MySpaceChatController : MonoBehaviour
         if (branch.onBranchCompleteEvent != ChatBranchEventType.None)
         {
             TriggerBranchEvent(branch, contact);
+        }
+
+        if (branch.possibleResponses == null || branch.possibleResponses.Count == 0)
+        {
+            if (contact != null && contact.rootBranchAsset != null)
+            {
+                var currentAsset = contact.rootBranchAsset;
+                if (currentAsset.nextBranchAsset != null)
+                {
+                    Debug.Log($"[Chat] Auto-continue ke next SO (branch fully ended): {currentAsset.nextBranchAsset.name}");
+
+                    contact.rootBranchAsset = currentAsset.nextBranchAsset;
+                    currentBranch = contact.rootBranchAsset.branch;
+                    currentBranches[currentContact] = currentBranch;
+
+                    yield return new WaitForSeconds(1f);
+
+                    yield return PlayBranch(currentBranch, contact);
+                    yield break;
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("[Chat] Waiting for player input — no auto-continue yet.");
         }
     }
 
@@ -181,18 +211,36 @@ public class MySpaceChatController : MonoBehaviour
 
             var contact = contactLookup[currentContact];
             yield return PlayBranch(currentBranch, contact);
+            yield break; 
         }
-        else
+
+        var contactData = contactLookup[currentContact];
+        var currentAsset = contactData.rootBranchAsset;
+
+        if (currentAsset != null && currentAsset.nextBranchAsset != null)
         {
-            Debug.Log("[Chat] Percakapan selesai di branch ini.");
+            Debug.Log($"[Chat] Beralih otomatis ke SO berikutnya: {currentAsset.nextBranchAsset.name}");
+
+            contactData.rootBranchAsset = currentAsset.nextBranchAsset;
+            currentBranch = contactData.rootBranchAsset.branch;
+            currentBranches[currentContact] = currentBranch;
+
+            yield return new WaitForSeconds(1f);
+
+            yield return PlayBranch(currentBranch, contactData);
+            yield break;
         }
+
+        Debug.Log("[Chat] Percakapan selesai — tidak ada branch atau SO berikutnya.");
     }
+
 
     IEnumerator PlayLines(List<ChatLine> lines)
     {
         foreach (var line in lines)
         {
             chatManager.SpawnOne(line.username, line.message);
+            FindObjectOfType<AudioManager>().PlaySFX("startcomputer");
             SaveToHistory(currentContact, line);
             yield return new WaitForSeconds(line.delayAfter);
         }

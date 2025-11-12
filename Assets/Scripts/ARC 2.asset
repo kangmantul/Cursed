@@ -1,0 +1,181 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30d394626bc7b7146a046ddee06b08a8, type: 3}
+  m_Name: ARC 2
+  m_EditorClassIdentifier: 
+  branch:
+    initialLines:
+    - username: moongirl
+      message: You still remember after all.
+      delayAfter: 1.5
+    - username: moongirl
+      message: Tulip.
+      delayAfter: 1.5
+    - username: moongirl
+      message: ' The moon and sun.'
+      delayAfter: 1.5
+    - username: moongirl
+      message: Yellow.
+      delayAfter: 1.5
+    - username: moongirl
+      message: "You\u2019ll understand soon, Alex."
+      delayAfter: 1.5
+    - username: moongirl
+      message: "You\u2019re doing well."
+      delayAfter: 1.5
+    - username: moongirl
+      message: "But memories aren\u2019t enough, are they?"
+      delayAfter: 1.5
+    possibleResponses:
+    - acceptedKeywords:
+      - '?'
+      - what
+      - you
+      - mean
+      - ha
+      - huh
+      npcResponse:
+      - username: moongirl
+        message: "You\u2019ve only remembered feelings."
+        delayAfter: 2
+      - username: moongirl
+        message: Not meanings.
+        delayAfter: 2
+      - username: moongirl
+        message: "There\u2019s still something locked"
+        delayAfter: 2
+      - username: moongirl
+        message: "inside the system\u2026 and inside you."
+        delayAfter: 2
+      - username: moongirl
+        message: "Do you see a file called \u201Cdecode\u201D on your desktop?"
+        delayAfter: 3
+      nextBranch:
+        initialLines:
+        - username: moongirl
+          message: "Maybe you just weren\u2019t ready to see it."
+          delayAfter: 2
+        - username: moongirl
+          message: Open it.
+          delayAfter: 2
+        - username: moongirl
+          message: Tell me when you already open that file
+          delayAfter: 2
+        possibleResponses:
+        - acceptedKeywords:
+          - huh
+          - ha
+          - done
+          - '?'
+          - you
+          - mean
+          - already
+          npcResponse:
+          - username: moongirl
+            message: You already see them?
+            delayAfter: 2
+          nextBranch:
+            initialLines:
+            - username: moongirl
+              message: and also in the note
+              delayAfter: 2
+            - username: moongirl
+              message: "Every mark\u2026"
+              delayAfter: 2
+            - username: moongirl
+              message: is a words you once knew
+              delayAfter: 2
+            - username: moongirl
+              message: but forgot how to say.
+              delayAfter: 2
+            - username: moongirl
+              message: "That\u2019s why cenotaph exist."
+              delayAfter: 2
+            possibleResponses:
+            - acceptedKeywords:
+              - cenotaph
+              - '?'
+              - you
+              - mean
+              - word
+              - ha
+              - huh
+              npcResponse:
+              - username: moongirl
+                message: Yes.
+                delayAfter: 2
+              - username: moongirl
+                message: " it\u2019s not just an app on ur computer."
+                delayAfter: 2
+              - username: moongirl
+                message: " It\u2019s a door\u2014"
+                delayAfter: 2
+              - username: moongirl
+                message: "and it\u2019s asking for the right name to open it."
+                delayAfter: 2
+              - username: moongirl
+                message: Username and password.
+                delayAfter: 2
+              - username: moongirl
+                message: "They\u2019re hidden between the lines."
+                delayAfter: 2
+              nextBranch:
+                initialLines:
+                - username: moongirl
+                  message: The decode file will help you understand how to read them.
+                  delayAfter: 2
+                possibleResponses:
+                - acceptedKeywords:
+                  - '?'
+                  - why
+                  - you
+                  - mean
+                  - open
+                  - ha
+                  - huh
+                  npcResponse:
+                  - username: moongirl
+                    message: "Because behind that door, Alex\u2026"
+                    delayAfter: 1.5
+                  - username: moongirl
+                    message: is the part of you that still remembers how to love
+                      me.
+                    delayAfter: 1.5
+                  nextBranch:
+                    initialLines: []
+                    possibleResponses: []
+                    defaultResponse: []
+                    onBranchCompleteEvent: 1
+                    popupKey: final
+                    appName: 
+                    clueName: 
+                defaultResponse: []
+                onBranchCompleteEvent: 1
+                popupKey: dict
+                appName: 
+                clueName: 
+            defaultResponse: []
+            onBranchCompleteEvent: 1
+            popupKey: why
+            appName: 
+            clueName: 
+        defaultResponse: []
+        onBranchCompleteEvent: 1
+        popupKey: decode
+        appName: 
+        clueName: 
+    defaultResponse: []
+    onBranchCompleteEvent: 1
+    popupKey: c2
+    appName: 
+    clueName: 
+  nextBranchAsset: {fileID: 0}

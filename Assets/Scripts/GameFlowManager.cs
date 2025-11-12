@@ -20,6 +20,8 @@ public class GameFlowManager : MonoBehaviour
     public PCState currentState = PCState.OFF;
     public ComputerController computerController;
 
+    public float biosImageHoldTime = 5f;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
@@ -41,6 +43,7 @@ public class GameFlowManager : MonoBehaviour
         if (!isSecondBoot)
         {
             // boot pertama → tampilkan login
+            FindObjectOfType<AudioManager>().PlaySFX("startcomputer");
             SetState(PCState.LOGIN);
             computerController.ShowLogin();
             MazeDialogueSystem.Instance.Play("pw");
@@ -49,6 +52,7 @@ public class GameFlowManager : MonoBehaviour
         {
             // boot kedua → tampilkan login kedua
             SetState(PCState.SECOND_LOGIN);
+            FindObjectOfType<AudioManager>().PlaySFX("startcomputer");
             computerController.ShowLogin();
         }
     }
@@ -72,13 +76,11 @@ public class GameFlowManager : MonoBehaviour
         }
     }
 
-    // === KELUAR SAAT POPUP ===
     public void RequestExitDuringPopup()
     {
         SetState(PCState.WAITING_FOR_FLOPPY);
     }
 
-    // === SAAT FLOPPY DIMASUKKAN ===
     public void OnFloppyInserted()
     {
         GameStateManager.Instance.floppyInserted = true;
@@ -91,14 +93,12 @@ public class GameFlowManager : MonoBehaviour
         yield return RunBootThenLogin(true);
     }
 
-    // === Helper ganti state dengan debug ===
-    void SetState(PCState s)
+    public void SetState(PCState s)
     {
         currentState = s;
         Debug.Log("[GameFlow] State -> " + s);
     }
 
-    // === BOLEH CLOSE DESKTOP? ===
     public bool CanCloseDesktop()
     {
         return currentState == PCState.WAITING_FOR_FLOPPY || currentState == PCState.MAIN_DESKTOP;
@@ -109,9 +109,7 @@ public class GameFlowManager : MonoBehaviour
     {
         if (currentState == PCState.MAIN_DESKTOP)
         {
-            // tetap unlocked — biarkan state MAIN_DESKTOP, tapi kita juga bisa set ke OFF
-            // jika kamu ingin reopen langsung tanpa boot, tetap biarkan desktopUnlocked = true
-            SetState(PCState.OFF); // kalau ingin PC dianggap "idle" tapi unlocked, ini OK
+            SetState(PCState.OFF); 
             Debug.Log("[GameFlow] Desktop closed by player. State set to OFF (unlocked).");
         }
         else if (currentState == PCState.DESKTOP_WITH_POPUP)
@@ -120,11 +118,8 @@ public class GameFlowManager : MonoBehaviour
         }
     }
 
-
-    // === SAAT PLAYER TEKAN E DI DEPAN PC ===
     public void OnPlayerInteractWithPC()
     {
-        // --- Jika sudah unlock main desktop ---
         if (GameStateManager.Instance.desktopUnlocked)
         {
             SetState(PCState.MAIN_DESKTOP);
@@ -134,7 +129,6 @@ public class GameFlowManager : MonoBehaviour
             return;
         }
 
-        // --- Jika belum unlock, jalankan boot normal pertama ---
         if (currentState == PCState.OFF)
         {
             var pc = FindObjectOfType<InteractablePC>();
