@@ -10,6 +10,7 @@ public class MazeNameTerminal : MonoBehaviour
     public Button submitButton;
     public MazeDoorController linkedDoor;
     public string correctAnswer = "LUNA";
+    public GameObject note1Canvas;
 
     private bool playerInside = false;
 
@@ -58,6 +59,9 @@ public class MazeNameTerminal : MonoBehaviour
             linkedDoor.OpenDoor();
             inputCanvas.SetActive(false);
             MazeDialogueSystem.Instance.Play("Note1");
+            if (note1Canvas != null)
+                note1Canvas.SetActive(true);
+
         }
         else
         {

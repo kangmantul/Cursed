@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class FINALE_STORY : MonoBehaviour
 {
@@ -20,13 +21,26 @@ public class FINALE_STORY : MonoBehaviour
     private bool triggered = false;
 
     [Header("Audio")]
-    public AudioClip bgmClipToPlay;  
+    public AudioClip bgmClipToPlay;
+
+    [Header("Ending")]
+    public string endingSceneName = "EndingScene"; 
+    private bool canEnd = false;                     
 
     void Start()
     {
         if (triggerOnStart)
         {
             TriggerDialogue();
+        }
+    }
+
+    void Update()
+    {
+        if (canEnd && Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("[FINALE] Player menekan P → pindah ke ending.");
+            SceneManager.LoadScene(endingSceneName);
         }
     }
 
@@ -64,5 +78,8 @@ public class FINALE_STORY : MonoBehaviour
             MazeDialogueUI.Instance.ShowDialogue(line.text, line.duration);
             yield return new WaitForSeconds(line.duration + 0.3f);
         }
+
+        canEnd = true;
+        Debug.Log("[FINALE] Dialog selesai. Tekan P untuk ending.");
     }
 }

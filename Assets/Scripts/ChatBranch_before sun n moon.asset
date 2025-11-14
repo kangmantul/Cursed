@@ -81,7 +81,7 @@ MonoBehaviour:
                 message: You still remember.
                 delayAfter: 1.5
               - username: moongirl
-                message: I kept a piece of it. In a photo. You took it, remember?
+                message: I kept a piece of it. In a photo, remember?
                 delayAfter: 2
               - username: moongirl
                 message: There was a flower beside me. It had no scent.

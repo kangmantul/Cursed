@@ -57,7 +57,7 @@ MonoBehaviour:
         message: "inside the system\u2026 and inside you."
         delayAfter: 2
       - username: moongirl
-        message: "Do you see a file called \u201Cdecode\u201D on your desktop?"
+        message: "Do you see a file called \u201Ccode_sheet\u201D on your desktop?"
         delayAfter: 3
       nextBranch:
         initialLines:

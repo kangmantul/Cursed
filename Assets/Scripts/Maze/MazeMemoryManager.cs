@@ -6,12 +6,14 @@ public class MazeMemoryManager : MonoBehaviour
     public static MazeMemoryManager Instance;
 
     [Header("Settings")]
-    public List<string> requiredFragments = new List<string>(); // id fragment
+    public List<string> requiredFragments = new List<string>(); 
     public MazeDoorController doorToUnlock; 
-    public AudioClip completionClip; // suara / bisikan saat puzzle selesai
+    public AudioClip completionClip; 
 
     private HashSet<string> collected = new HashSet<string>();
     private bool completed = false;
+
+    public GameObject note2Canvas;
 
     void Awake()
     {
@@ -34,7 +36,10 @@ public class MazeMemoryManager : MonoBehaviour
         completed = true;
         Debug.Log("[MemoryManager] Semua kenangan ditemukan.");
 
-        MazeDialogueSystem.Instance.Play("note2_memory_complete"); // bisa munculkan dialog
+        if (note2Canvas != null)
+            note2Canvas.SetActive(true);
+
+        MazeDialogueSystem.Instance.Play("note2_memory_complete");
         if (completionClip) AudioSource.PlayClipAtPoint(completionClip, Camera.main.transform.position);
 
         if (doorToUnlock != null)

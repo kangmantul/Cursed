@@ -15,7 +15,7 @@ public class LightFlyerTrigger : MonoBehaviour
             triggered = true;
             var flyer = Instantiate(lightFlyerPrefab, spawnPoint.position, spawnPoint.rotation)
                         .GetComponent<LightFlyer>();
-
+            FindObjectOfType<AudioManager>().PlaySFX("duar");
             flyer.OnFlyerDestroyed += () =>
             {
                 triggered = false;

@@ -19,6 +19,8 @@ public class MazeDialogueTrigger : MonoBehaviour
     public bool triggerOnStart = false; 
     private bool triggered = false;
 
+    [Header("Audio")]
+    public AudioClip bgmClipToPlay;
     void Start()
     {
         if (triggerOnStart)
@@ -32,6 +34,11 @@ public class MazeDialogueTrigger : MonoBehaviour
         if (triggered && triggerOnce) return;
         if (!other.CompareTag("Player")) return;
         TriggerDialogue();
+
+        if (bgmClipToPlay != null)
+        {
+            FindObjectOfType<AudioManager>()?.PlayBGM(bgmClipToPlay);
+        }
     }
 
     public void TriggerDialogue()
