@@ -132,7 +132,7 @@ public class MySpaceChatController : MonoBehaviour
         foreach (var line in branch.initialLines)
         {
             chatManager.SpawnOne(line.username, line.message);
-            FindObjectOfType<AudioManager>().PlaySFX("startcomputer");
+            FindObjectOfType<AudioManager>().PlaySFX("notif");
             SaveToHistory(currentContact, line);
             yield return new WaitForSeconds(line.delayAfter);
         }
@@ -240,7 +240,7 @@ public class MySpaceChatController : MonoBehaviour
         foreach (var line in lines)
         {
             chatManager.SpawnOne(line.username, line.message);
-            FindObjectOfType<AudioManager>().PlaySFX("startcomputer");
+            FindObjectOfType<AudioManager>().PlaySFX("notif");
             SaveToHistory(currentContact, line);
             yield return new WaitForSeconds(line.delayAfter);
         }

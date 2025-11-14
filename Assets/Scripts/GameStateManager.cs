@@ -70,6 +70,7 @@ public class GameStateManager : MonoBehaviour
         unlockedClues.Add(clueName);
         Debug.Log($"[GameStateManager] Clue '{clueName}' berhasil ditemukan!");
 
+
         var clueObj = GameObject.Find(clueName);
         if (clueObj != null)
         {

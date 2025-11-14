@@ -158,8 +158,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000038147, y: -47}
-  m_SizeDelta: {x: 702.1136, y: 156.8924}
+  m_AnchoredPosition: {x: -0.00001061, y: -40.199997}
+  m_SizeDelta: {x: 664.4477, y: 156.8924}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &166436546
 MonoBehaviour:
@@ -182,7 +182,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: a2a6eb662e9399240b90e17b5189df63, type: 3}
     m_FontSize: 24
     m_FontStyle: 0
     m_BestFit: 0
@@ -195,6 +195,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: 'This game contains flashing lights, loud noises, and jumpscares.
+
 
     The
     creator of this game assumes no responsibility for any adverse reactions or effects
@@ -798,8 +799,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 81.913}
-  m_SizeDelta: {x: 325.6594, y: 100.933}
+  m_AnchoredPosition: {x: 13, y: 96}
+  m_SizeDelta: {x: 308.1889, y: 74.1495}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1755331835
 Animator:
@@ -859,7 +860,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: a2a6eb662e9399240b90e17b5189df63, type: 3}
     m_FontSize: 70
     m_FontStyle: 0
     m_BestFit: 0

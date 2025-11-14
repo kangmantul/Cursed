@@ -37,6 +37,8 @@ MonoBehaviour:
       - Why
       - What
       - '?'
+      - ha
+      - huh
       npcResponse:
       - username: moongirl
         message: "You don\u2019t remember, do you?"

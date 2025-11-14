@@ -18,6 +18,7 @@ public class AudioManager : MonoBehaviour
     private AudioSource sfxSource;
     private AudioSource ambientSource;
 
+
     void Awake()
     {
         // Biar gak duplikat, hancurin semua AudioManager lain di scene
@@ -53,7 +54,6 @@ public class AudioManager : MonoBehaviour
             PlayAmbient(ambientClip);
         }
     }
-
     public void PlayBGM(AudioClip clip)
     {
         if (clip == null)

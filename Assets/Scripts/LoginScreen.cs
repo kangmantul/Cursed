@@ -4,11 +4,9 @@ using UnityEngine.UI;
 public class LoginScreen : MonoBehaviour
 {
     public InputField usernameField;
-    public InputField passwordField;
     public Text feedbackText;
 
     public string correctUser = "a";
-    public string correctPass = "a";
 
     void Update()
     {
@@ -20,7 +18,7 @@ public class LoginScreen : MonoBehaviour
 
     public void TryLogin()
     {
-        if (usernameField.text == correctUser && passwordField.text == correctPass)
+        if (usernameField.text == correctUser)
         {
             feedbackText.text = "Access granted.";
             GameFlowManager.Instance.OnLoginSuccessful();
