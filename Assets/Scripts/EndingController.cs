@@ -15,7 +15,10 @@ public class EndingController : MonoBehaviour
 
     public void PlayAgain()
     {
+        DisableFPSControls();
+
         ResetGameState();
+
         SceneManager.LoadScene(mainMenuSceneName);
     }
 
@@ -37,9 +40,22 @@ public class EndingController : MonoBehaviour
         }
 
         FindObjectOfType<AudioManager>()?.StopAll();
-
         Time.timeScale = 1f;
 
         Debug.Log("[Ending] Game State RESET, kembali ke menu.");
+    }
+
+    void DisableFPSControls()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
+        var movement = FindObjectOfType<FirstPersonMovement>();
+        if (movement != null) movement.enabled = false;
+
+        var look = FindObjectOfType<FirstPersonLook>();
+        if (look != null) look.enabled = false;
+
+        Debug.Log("[Ending] FPS controls disabled + cursor unlocked.");
     }
 }

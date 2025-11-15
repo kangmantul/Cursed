@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.LowLevel;
 
 public class FINALE_STORY : MonoBehaviour
 {
@@ -40,6 +41,19 @@ public class FINALE_STORY : MonoBehaviour
         if (canEnd && Input.GetKeyDown(KeyCode.P))
         {
             Debug.Log("[FINALE] Player menekan P → pindah ke ending.");
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            var move = FindObjectOfType<FirstPersonMovement>();
+            if (move != null) move.enabled = false;
+
+            var look = FindObjectOfType<FirstPersonLook>();
+            if (look != null) look.enabled = false;
+
             SceneManager.LoadScene(endingSceneName);
         }
     }

@@ -158,8 +158,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.00001061, y: -40.199997}
-  m_SizeDelta: {x: 664.4477, y: 156.8924}
+  m_AnchoredPosition: {x: -0.00001061, y: -52.934814}
+  m_SizeDelta: {x: 664.4477, y: 216.362}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &166436546
 MonoBehaviour:
@@ -194,14 +194,17 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'This game contains flashing lights, loud noises, and jumpscares.
+  m_Text: 'This program contains psychological themes, distorted audio, and unsettling
+    imagery.
+
+    Some scenes may cause discomfort or emotional distress.
 
 
     The
-    creator of this game assumes no responsibility for any adverse reactions or effects
-    imparted by playing this game.
+    creator assumes no responsibility
 
-    You have been warned.'
+    for any effects caused while accessing
+    this experience.'
 --- !u!222 &166436547
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -799,7 +802,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 13, y: 96}
+  m_AnchoredPosition: {x: 13, y: 113}
   m_SizeDelta: {x: 308.1889, y: 74.1495}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1755331835
