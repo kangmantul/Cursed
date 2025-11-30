@@ -27,10 +27,6 @@ MonoBehaviour:
     - username: moongirl
       message: Do you ever scroll through old messages just to feel something again?
       delayAfter: 1.5
-    - username: moongirl
-      message: "Sometimes I do that. Sometimes it\u2019s like hearing a ghost talk
-        back."
-      delayAfter: 1.5
     possibleResponses:
     - acceptedKeywords:
       - Who
@@ -57,6 +53,7 @@ MonoBehaviour:
           - What
           - Color
           - '?'
+          - Yes
           npcResponse:
           - username: moongirl
             message: Yes.
@@ -111,8 +108,7 @@ MonoBehaviour:
                       delayAfter: 2
                     possibleResponses:
                     - acceptedKeywords:
-                      - sun
-                      - moon
+                      - sun and moon
                       npcResponse:
                       - username: moongirl
                         message: Yes.
