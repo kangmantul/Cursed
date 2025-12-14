@@ -4,8 +4,10 @@ public class PickupSystem : MonoBehaviour
 {
     public Transform holdPosition;
     public float pickupRange = 3f;
+    public GameObject holdPrefab;
 
-    private Rigidbody heldObject;
+    private GameObject heldObject;
+    private GameObject originalObject;
 
     void Update()
     {
@@ -19,8 +21,8 @@ public class PickupSystem : MonoBehaviour
 
         if (heldObject != null)
         {
-            heldObject.MovePosition(holdPosition.position);
-            heldObject.MoveRotation(holdPosition.rotation);
+            heldObject.transform.position = holdPosition.position;
+            heldObject.transform.rotation = holdPosition.rotation;
         }
     }
 
@@ -33,19 +35,19 @@ public class PickupSystem : MonoBehaviour
         {
             if (hit.transform.CompareTag("canPickUp"))
             {
-                Rigidbody rb = hit.transform.GetComponent<Rigidbody>();
-                if (rb != null)
-                {
-                    heldObject = rb;
-                    heldObject.useGravity = false;
-                    heldObject.isKinematic = true;
+                originalObject = hit.transform.gameObject;
 
-                    if (hit.transform.name.ToLower().Contains("floppy"))
-                    {
-                        GameStateManager.Instance.hasFloppy = true;
-                        Debug.Log("Floppy picked up!");
-                    }
+                foreach (Renderer r in originalObject.GetComponentsInChildren<Renderer>())
+                {
+                    r.enabled = false;
                 }
+
+                heldObject = Instantiate(
+                    holdPrefab,
+                    holdPosition.position,
+                    holdPosition.rotation,
+                    holdPosition
+                );
             }
         }
     }
@@ -53,8 +55,21 @@ public class PickupSystem : MonoBehaviour
 
     void DropObject()
     {
-        heldObject.useGravity = true;
-        heldObject.isKinematic = false;
+        Destroy(heldObject);
         heldObject = null;
+
+        if (originalObject != null)
+        {
+            foreach (Renderer r in originalObject.GetComponentsInChildren<Renderer>())
+            {
+                r.enabled = true;
+            }
+
+            Collider col = originalObject.GetComponent<Collider>();
+            if (col) col.enabled = true;
+
+            originalObject = null;
+        }
     }
+
 }

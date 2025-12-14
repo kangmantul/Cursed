@@ -18,8 +18,9 @@ public class FloppyInsertZone : MonoBehaviour
         }
 
         var heldField = typeof(PickupSystem)
-            .GetField("heldObject", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-        Rigidbody held = heldField.GetValue(pickup) as Rigidbody;
+    .GetField("heldObject", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+
+        GameObject held = heldField.GetValue(pickup) as GameObject;
 
         if (held == null)
         {
@@ -33,8 +34,6 @@ public class FloppyInsertZone : MonoBehaviour
             return;
         }
 
-        held.useGravity = false;
-        held.isKinematic = true;
         held.transform.position = transform.position;
         held.transform.rotation = transform.rotation;
 

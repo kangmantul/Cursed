@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class ComputerController : MonoBehaviour
 {
-    [Header("UI Screens (assign in inspector)")]
+    [Header("UI Screens")]
     public GameObject biosPanel_Normal;      
     public GameObject biosPanel_Corrupted;   
     public GameObject bootUpPanel;          

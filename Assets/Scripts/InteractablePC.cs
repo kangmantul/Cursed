@@ -126,8 +126,6 @@ public class InteractablePC : MonoBehaviour
         if (desktopUI != null) desktopUI.gameObject.SetActive(false);
 
         UnlockFromPC();
-        // kecilkan kemungkinan race condition, reset isClosing di next frame
-        // supaya jika ada callback lain yang memanggil CloseDesktop() segera tidak menyebabkan recursion
         StartCoroutine(ClearClosingFlagNextFrame());
     }
 
@@ -137,7 +135,6 @@ public class InteractablePC : MonoBehaviour
         isClosing = false;
     }
 
-    // Fungsi bantuan yang dipakai GameFlowManager jika perlu 'force open' desktop
     public void ForceOpenDesktop()
     {
         if (isDesktopOpen) return;
